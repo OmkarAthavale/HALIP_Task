@@ -112,8 +112,17 @@ for responseVarNum = 1:length(responseVariables)
         figure(h2);
         nexttile;
 
-        qqplot(residuals(fittedModel),  )
+        qqplot(residuals(fittedModel))
         subtitle(sprintf('R^2 = %.2f', r2(responseVarNum, questionNum)));
                 
     end
 end
+
+% plot colour bar
+figure(h)
+cc = colorbar(gca); 
+cc.Layout.Tile = 'south'; 
+cc.Label.String = 'Subject ID';
+
+% save comparison figures
+saveHQsvg(h, sprintf('%s/bySession_%s', saveImgPath, datestr(datetime, 'yymmddHHMMSS')))
