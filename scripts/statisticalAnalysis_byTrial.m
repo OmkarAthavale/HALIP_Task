@@ -90,35 +90,4 @@ for currTest = 1:length(testSets{1})
     
 end
 
-saveHQsvg(h, sprintf('%s/%s_%s', saveImgPath, responseVar, datestr(datetime, 'yymmddHHMMSS')))
-%%
-assert(0)
-
-[sumTable,resTable,strings]=groupMeanSem(trialData(maskA, :),{'subjectId'},{'beforeAfter'},{'falseAlarm', 'confidenceFalseAlarm', 'outcome'},0);
-fprintf('%s\n', strcat(strings{:}))
-[sumTable,resTable,strings]=groupMeanSem(trialData(maskTrials_initial20&maskTrials_antibodyB, :),{'subjectId'},{'beforeAfter'},{'falseAlarm', 'confidenceFalseAlarm', 'outcome'},0);
-fprintf('%s\n', strcat(strings{:}))
-[sumTable,resTable,strings]=groupMeanSem(trialData(maskTrials_initial20&maskTrials_postImplant, :),{'subjectId'},{'antibodyId', 'beforeAfter'},{'falseAlarm', 'confidenceFalseAlarm', 'outcome'},0);
-fprintf('%s\n', strcat(strings{:}))
-
-
-[sumTable,resTable,strings]=groupMeanSem(trialData(maskTrials_initial20&maskTrials_postImplant&maskTrials_antibody005, :),{'subjectId'},{'antibodyId'},{'falseAlarm', 'confidenceFalseAlarm', 'outcome'},0);
-fprintf('%s\n', strcat(strings{:}))
-[sumTable,resTable,strings]=groupMeanSem(trialData(maskTrials_initial20&~maskTrials_antibodyB&maskTrials_antibody005, :),{'subjectId'},{'beforeAfter'},{'falseAlarm', 'confidenceFalseAlarm', 'outcome'},0);
-fprintf('%s\n', strcat(strings{:}))
-[sumTable,resTable,strings]=groupMeanSem(trialData(maskTrials_initial20&maskTrials_antibodyB&maskTrials_antibody005, :),{'subjectId'},{'beforeAfter'},{'falseAlarm', 'confidenceFalseAlarm', 'outcome'},0);
-fprintf('%s\n', strcat(strings{:}))
-
-
-figure;
-before = groupsummary(trialData(maskTrials_initial20&~maskTrials_antibody005&~maskTrials_postImplant, :), 'subjectId', {'mean', 'std'}, 'outcome');
-after = groupsummary(trialData(maskTrials_initial20&~maskTrials_antibody005&maskTrials_postImplant, :), 'subjectId', {'mean', 'std'}, 'outcome');
-
-errorbar(zeros(height(before), 1)+rand(height(before), 1), before{:, 'mean_outcome'}, before{:, 'std_outcome'}, 'Marker', 'o', 'LineStyle', 'none')
-hold on
-errorbar(ones(height(after), 1)+rand(height(after), 1), after{:, 'mean_outcome'}, after{:, 'std_outcome'}, 'Marker', 'o', 'LineStyle', 'none')
-
-x = trialData{maskTrials_initial20&~maskTrials_antibody005, 'beforeAfter'}
-y = trialData{maskTrials_initial20&~maskTrials_antibody005, 'confidenceFalseAlarm'}
-boxplot(y, x)
-
+saveHQsvg(h, sprintf('%s/byTrial_%s_%s', saveImgPath, responseVar, datestr(datetime, 'yymmddHHMMSS')))
